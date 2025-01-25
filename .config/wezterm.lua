@@ -1,22 +1,22 @@
 local wezterm = require 'wezterm'
+
 local config = {}
+
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
-
-
 config.default_prog = { "pwsh.exe", "-NoLogo" }
 config.font = wezterm.font("JetBrains Mono")
 config.use_fancy_tab_bar = false
 config.window_background_opacity = 0.75
 config.win32_system_backdrop = 'Acrylic'
-config.color_scheme = 'Ciapre'
 config.text_background_opacity = 1.0
 config.window_decorations = 'RESIZE'
 config.tab_bar_at_bottom = true
+config.adjust_window_size_when_changing_font_size = false
 
 -- Keymaps
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1500 }
+config.leader = { key = ",", mods = "CTRL", timeout_milliseconds = 1500 }
 config.keys = {
   {
     mods = "LEADER",
