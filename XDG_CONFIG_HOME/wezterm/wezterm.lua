@@ -125,4 +125,3 @@ wezterm.on("update-right-status", function(window, _)
   })
 end)
 return config
-

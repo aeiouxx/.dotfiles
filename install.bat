@@ -1,5 +1,5 @@
 @echo off
-REM Check if XDG_CONFIG_HOME is set, optionally set it
+REM Check if XDG_CONFIG_HOME is set
 if "%XDG_CONFIG_HOME%"=="" (
     echo ===============================================
     echo WARNING: The XDG_CONFIG_HOME environment variable is not set.
@@ -23,21 +23,23 @@ if "%XDG_CONFIG_HOME%"=="" (
     )
 )
 
-REM Set the source directory (adjust this to your dotfiles location)
-set SOURCE_DIR=%~dp0.config
+set SOURCE_XDG_CONFIG_HOME=%~dp0XDG_CONFIG_HOME
+set SOURCE_USERPROFILE=%~dp0windows\USERPROFILE
 
-REM Set the target directory
-set TARGET_DIR=%USERPROFILE%\.config
-
-REM Ensure the target directory exists
-if not exist "%TARGET_DIR%" (
-    mkdir "%TARGET_DIR%"
+if not exist "%XDG_CONFIG_HOME%" (
+    mkdir "%XDG_CONFIG_HOME%"
 )
 
-REM Sync files from source to target, excluding .git
-robocopy "%SOURCE_DIR%" "%TARGET_DIR%" /E /Z /XA:H /XD .git /R:1 /W:1
+echo Syncing XDG_CONFIG_HOME: %XDG_CONFIG_HOME%
+robocopy "%SOURCE_XDG_CONFIG_HOME%" "%XDG_CONFIG_HOME%" /E /Z /R:1 /W:1
 
-REM Confirmation
-echo Sync complete.
+echo Windows specific:
+echo Syncing USERPROFILE: %USERPROFILE%
+robocopy "%SOURCE_USERPROFILE%" "%USERPROFILE%" /E /Z /R:1 /W:1
+
+REM Final confirmation
+echo ===============================================
+echo All configurations synced successfully.
+echo ===============================================
 pause
 

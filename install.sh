@@ -29,8 +29,8 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
     esac
 fi
 
-# Set the source directory (adjust this to your dotfiles location)
-SOURCE_DIR="$(dirname "$(readlink -f "$0")")/.config"
+
+SOURCE_DIR="$(dirname "$(readlink -f "$0")")/XDG_CONFIG_HOME"
 
 # Set the target directory
 TARGET_DIR="$XDG_CONFIG_HOME"
@@ -41,6 +41,6 @@ if [ ! -d "$TARGET_DIR" ]; then
 fi
 
 # Sync files from source to target, excluding .git
-rsync -av --exclude=".git" "$SOURCE_DIR/" "$TARGET_DIR/"
+rsync -av "$SOURCE_DIR/" "$TARGET_DIR/"
 
 # Confirmation

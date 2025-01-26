@@ -1,3 +1,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/aeiouxx/config.nvim
+[submodule "XDG_CONFIG_HOME/nvim"]
+	path = XDG_CONFIG_HOME/nvim
+	url = https://github.com/aeiouxx/config.nvim
