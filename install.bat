@@ -24,7 +24,7 @@ if "%XDG_CONFIG_HOME%"=="" (
 )
 
 set SOURCE_XDG_CONFIG_HOME=%~dp0XDG_CONFIG_HOME
-set SOURCE_USERPROFILE=%~dp0windows\USERPROFILE
+
 
 if not exist "%XDG_CONFIG_HOME%" (
     mkdir "%XDG_CONFIG_HOME%"
@@ -35,7 +35,27 @@ robocopy "%SOURCE_XDG_CONFIG_HOME%" "%XDG_CONFIG_HOME%" /E /Z /R:1 /W:1
 
 echo Windows specific:
 echo Syncing USERPROFILE: %USERPROFILE%
+set SOURCE_USERPROFILE=%~dp0windows\USERPROFILE
 robocopy "%SOURCE_USERPROFILE%" "%USERPROFILE%" /E /Z /R:1 /W:1
+echo Syncing PROFILE:
+REM who would use powershell on linux tbh
+for /f "usebackq delims=" %%p in (`powershell -NoProfile -Command "Write-Output $PROFILE"`) do set PS_PROFILE=%%p
+if "%PS_PROFILE%"=="" (
+    echo ERROR: Could not retrieve PowerShell profile path.
+    pause
+    exit /b 1
+)
+echo Detected PowerShell profile path: %PS_PROFILE%
+for %%d in ("%PS_PROFILE%") do (
+    if not exist "%%~dpd" (
+        echo Creating directory for PowerShell profile...
+        mkdir "%%~dpd"
+    )
+)
+set SOURCE_PS_PROFILE=%~dp0XDG_CONFIG_HOME\powershell\Microsoft.PowerShell_profile.ps1
+echo Copying from %SOURCE_PS_PROFILE% to %PS_PROFILE%
+copy /Y "%SOURCE_PS_PROFILE%" "%PS_PROFILE%"
+
 
 REM Final confirmation
 echo ===============================================
