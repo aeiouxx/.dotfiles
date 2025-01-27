@@ -14,6 +14,7 @@ config.text_background_opacity = 1.0
 config.window_decorations = 'RESIZE'
 config.tab_bar_at_bottom = true
 config.adjust_window_size_when_changing_font_size = false
+config.audible_bell = "Disabled"
 
 -- Keymaps
 config.leader = { key = ",", mods = "CTRL", timeout_milliseconds = 1500 }
