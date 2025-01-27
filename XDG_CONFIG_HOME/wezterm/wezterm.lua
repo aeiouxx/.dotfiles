@@ -6,16 +6,20 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 config.default_prog = { "pwsh.exe", "-NoLogo" }
-config.font = wezterm.font("JetBrains Mono")
-config.use_fancy_tab_bar = false
-config.window_background_opacity = 1
--- Buggy
---config.win32_system_backdrop = 'Acrylic'
-config.text_background_opacity = 1.0
+-- Window
 config.window_decorations = 'RESIZE'
+config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
+-- Misc
+config.text_background_opacity = 1.0
 config.adjust_window_size_when_changing_font_size = false
+config.font = wezterm.font("JetBrains Mono")
 config.audible_bell = "Disabled"
+
+local opacity_util = require 'opacity-util'
+opacity_util(config)
+
+
 
 -- Keymaps
 config.leader = { key = ",", mods = "CTRL", timeout_milliseconds = 1500 }
@@ -107,11 +111,6 @@ for i = 1, 9 do
     action = wezterm.action.ActivateTab(i - 1),
   })
 end
-
--- colorscheme
-config.colors = {
-  background = '1e2129'
-}
 
 wezterm.on("update-right-status", function(window, _)
   local left_status = ""
