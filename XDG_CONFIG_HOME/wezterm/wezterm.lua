@@ -8,8 +8,9 @@ end
 config.default_prog = { "pwsh.exe", "-NoLogo" }
 config.font = wezterm.font("JetBrains Mono")
 config.use_fancy_tab_bar = false
-config.window_background_opacity = 0.75
-config.win32_system_backdrop = 'Acrylic'
+config.window_background_opacity = 1
+-- Buggy
+--config.win32_system_backdrop = 'Acrylic'
 config.text_background_opacity = 1.0
 config.window_decorations = 'RESIZE'
 config.tab_bar_at_bottom = true
@@ -107,6 +108,10 @@ for i = 1, 9 do
   })
 end
 
+-- colorscheme
+config.colors = {
+  background = '1e2129'
+}
 
 wezterm.on("update-right-status", function(window, _)
   local left_status = ""
