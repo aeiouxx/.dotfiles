@@ -1,5 +1,18 @@
 local wezterm = require 'wezterm'
 
+local function dump(o)
+  if type(o) == 'table' then
+    local s = '{ '
+    for k,v in pairs(o) do
+      if type(k) ~= 'number' then k = '"'..k..'"' end
+      s = s .. '[' ..k..' ] = ' .. dump(v) .. ','
+    end
+    return s .. '}'
+  else
+    return tostring(o)
+  end
+end
+
 local config = {}
 
 if wezterm.config_builder then
@@ -102,6 +115,14 @@ config.keys = {
     mods = "LEADER",
     key = "o",
     action = wezterm.action.AdjustPaneSize { "Up", 5 }
+  },
+  {
+    mods = "LEADER",
+    key = "a",
+    action = wezterm.action.ShowLauncherArgs {
+      flags = "FUZZY|DOMAINS",
+      title = "Select a domain"
+    },
   },
 }
 for i = 1, 9 do

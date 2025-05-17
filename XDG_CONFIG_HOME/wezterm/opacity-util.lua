@@ -25,6 +25,7 @@ return function(config)
       local backend = adapter.backend
       local type = adapter.device_type
       if backend ~= 'Gl' then
+        wezterm.log_error("Incorrect backend: " .. backend)
         return 0
       end
       local prio = {
